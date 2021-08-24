@@ -35,7 +35,11 @@ function execute(message, args, inputArgs) {
       )
       .addFields(
         { name: "\u200b", value: "\u200b" },
-        { name: "Author", value: `*ulla britta*`, inline: true },
+        {
+          name: "Author",
+          value: `*mapokapo <leopetrovic11@gmail.com>*`,
+          inline: true,
+        },
         { name: "Version", value: `*${config.version}*`, inline: true }
       )
       .setFooter(
