@@ -1,0 +1,14 @@
+{
+  "name": "Info",
+  "desc": "Show info about the bot and lists all commands, or shows the details of a command passed as an argument.",
+  "usage": "/info kick",
+  "argc": 1,
+  "args": [
+    {
+      "name": "command",
+      "type": "string",
+      "desc": "The command you want to view the details of.",
+      "default": "all"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "discord-template-bot",
+  "version": "1.0.0",
+  "description": "A robust NodeJS template for building Discord bots",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/index.js"
+  },
+  "keywords": [
+    "discord",
+    "template",
+    "bot"
+  ],
+  "author": "mapokapo <leopetrovic11@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0"
+  }
+}

@@ -1,0 +1,19 @@
+{
+	"name": "Kick",
+	"desc": "Kicks a user from the server with an optionally specified reason.",
+	"usage": "/kick @JohnDoe Breaking the rules.",
+	"argc": 2,
+	"args": [
+		{
+			"name": "username",
+			"type": "Username",
+			"desc": "The username of the user you want to kick."
+		},
+		{
+			"name": "reason",
+			"type": "string+",
+			"desc": "The reason you're kicking this user.",
+			"default": "Kicked by an administrator."
+		}
+	]
+}

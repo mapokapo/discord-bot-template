@@ -1,0 +1,56 @@
+THIS PROJECT USES TYPESCRIPT TYPES EXTENSIVELY
+THE ONLY FILES THAT SHOULD BE WRITTEN IN JAVASCRIPT ARE COMMAND EXECUTION SCRIPTS IN commands/<command name>/command.js
+
+DATA STRUCTURES:
+	- Command (Data about every registered command)
+	- Argument (Data about each argument for any commands that have arguments)
+	- Config (A global "store" object with misc data)
+
+ARGUMENT DEFINITION:
+	- An argument in the Command "args" array is an object with the following properties:
+		- "name" (string) - The provided name of the argument (this value is used to notify the command executor of which arguments were incorrect if an argument error occurs)
+		- "type" (string) - String that represents the type of the argument. Available argument types are: string, integer, float, boolean, Username, Channel, Role. A string that contains an argument type followed by a plus symbol means at least one instance of this argument type - this type of argument must be the last in the args list, as it will catch every argument that comes after it in a single value.
+		- "desc" (string) - The description of the argument or why this argument is required.
+		- "default" (string?) - If this property is not null, then the value it holds will be used as the default value of the argument if it wasn't supplied by the command executor. Otherwise, if this property is null, it denotes that this is a required argument.
+
+COMMAND DEFINITION:
+	- Notes:
+		- Each command consists of a folder with the same name as the command label (i.e. a "!kick" command would be located in a folder called "kick"), and in that folder are 2 files:
+			- a JSON file called "command.json" that describes the command
+			- a JS file called "command.js" that will contain the code which will be executed when the command is run
+	- The "command.json" file is a JSON object that can contain the following properties:
+		- "name" (string) - Human-readable command name
+		- "desc" (string) - Command description
+		- "usage" (string) - Example command usage
+		- "argc" (number|string) - The maximum number of arguments that this command can take, including optional arguments. Note that overflow arguments are counted as a single argument, as they can theoretically contain an endless amount of tokens.
+		- "args" (string[]) - An array of Argument objects describing command arguments in order of appearance
+	- If the "command.json" file is malformed or contains nonsensical values (eg. 3 arguments but an argument count of 2), the bot will throw an error to the console and preemptively shut down. You will have to fix your "command.json" file before you can use the bot.
+	- example command.json:
+		{
+			name: "Kick",
+			desc: "Kicks a user from the server with an optionally specified reason.",
+			usage: "/kick @JohnDoe Breaking the rules.",
+			argc: "2",
+			args: [
+				{
+					name: "username",
+					type: "Username",
+					desc: "The username of the user you want to kick."
+				},
+				{
+					name: "reason",
+					type: "string+",
+					desc: "The reason you're kicking this user.",
+					default: "Kicked by an administrator."
+				}
+			]
+		}
+	- The "command.js" file is an ordinary JS file that exports a single function named "execute". This function takes 3 arguments:
+		-the Discord.Message variable
+		- an "args" variable of type Argument[] which describes the arguments this command takes/should take
+		- a "inputArgs" argument which is an array of strings that the command executor passed when executing the command.
+	- Note that the "inputArgs" argument will get validated before it reaches the "execute" function, and the bot will show a formatted error to the user if necessary, so you dont have to worry about validation.
+	- The function has to return null if no errors have occured, otherwise you can return a string (optionally formatted with Discord formatting characters), which will be shown to the user as a formatted error message.
+	- If you need help or a guide on how to create your own commands, you can start by browsing the default commands in the "commands" folder, and then copy the contents and change the code to your need.
+	- EXAMPLE COMMAND USAGE:
+		"/kick @JohnDoe" - first argument has a type of Username, and the second argument was not supplied, however the "default" property on it is not null, so it will be used instead (in this example, it will be "Kicked by an administrator.")

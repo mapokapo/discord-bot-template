@@ -1,0 +1,7 @@
+{
+  "name": "Status",
+  "desc": "Shows info about the server (member count, server age, etc.).",
+  "usage": "/status",
+  "argc": 0,
+  "args": []
+}

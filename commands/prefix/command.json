@@ -1,0 +1,13 @@
+{
+  "name": "Prefix",
+  "desc": "Changes the prefix used to execute commands.",
+  "usage": "/prefix !",
+  "argc": 1,
+  "args": [
+    {
+      "name": "prefix",
+      "type": "string",
+      "desc": "The new prefix you want to use."
+    }
+  ]
+}
